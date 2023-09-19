@@ -38,6 +38,8 @@ listdfrace$AlbanLegallA <-
 listdfrace$AntoninBordasB <-
   listdfrace$AntoninBordasB %>% select(temps, hr , distance, altitude , speed)
 
+listdfrace$AntoninBordasB$speed <- listdfrace$AntoninBordasB$speed * 3.6
+
 #Mise en forme Bastien M
 
 listdfrace$BastienMarsanA <-
@@ -60,6 +62,8 @@ colnames(listdfrace$BastienMarsanA) <-
 
 listdfrace$BastienMarsanA <-
   listdfrace$BastienMarsanA %>% relocate(temps , hr , distance, altitude, speed)
+
+listdfrace$BastienMarsanA$speed <- listdfrace$BastienMarsanA$speed * 3.6
 
 #mise en forme bastien R
 
@@ -117,21 +121,21 @@ listdfrace$GabinAgeronA <-
 
 #Remise en forme Gaetan
 
-listdfrace$GaetanSteenbergenB <-
-  listdfrace$GaetanSteenbergenB %>% select(`Start time`,
-                                     Sport ,
-                                     Date ,
-                                     `Average heart rate (bpm)`,
-                                     `Max speed (km/h)`)
-
-listdfrace$GaetanSteenbergenB <- listdfrace$GaetanSteenbergenB[-c(1:2),-2]
-tps <- 1:10200
-listdfrace$GaetanSteenbergenB <- cbind(listdfrace$GaetanSteenbergenB , tps)
-colnames(listdfrace$GaetanSteenbergenB) <-
-  c("speed" , "hr" , "altitude" , "distance" , "temps")
-
-listdfrace$GaetanSteenbergenB <-
-  listdfrace$GaetanSteenbergenB %>% relocate(temps , hr , distance , altitude, speed)
+# listdfrace$GaetanSteenbergenB <-
+#   listdfrace$GaetanSteenbergenB %>% select(`Start time`,
+#                                      Sport ,
+#                                      Date ,
+#                                      `Average heart rate (bpm)`,
+#                                      `Max speed (km/h)`)
+#
+# listdfrace$GaetanSteenbergenB <- listdfrace$GaetanSteenbergenB[-c(1:2),-2]
+# tps <- 1:10200
+# listdfrace$GaetanSteenbergenB <- cbind(listdfrace$GaetanSteenbergenB , tps)
+# colnames(listdfrace$GaetanSteenbergenB) <-
+#   c("speed" , "hr" , "altitude" , "distance" , "temps")
+#
+# listdfrace$GaetanSteenbergenB <-
+#   listdfrace$GaetanSteenbergenB %>% relocate(temps , hr , distance , altitude, speed)
 
 #Remise en forme Jules
 
@@ -165,42 +169,44 @@ colnames(listdfrace$JulesSavignacB) <-
 listdfrace$JulesSavignacB <-
   listdfrace$JulesSavignacB %>% relocate(temps , hr , distance , altitude, speed)
 
-# Remise en forme Maris
+listdfrace$JulesSavignacB$speed <- listdfrace$JulesSavignacB$speed * 3.6
 
-listdfrace$MarisAllieB <-
-  listdfrace$MarisAllieB %>% select(`Start time`,
-                                           Sport ,
-                                           Date ,
-                                           `Average heart rate (bpm)`,
-                                           `Max speed (km/h)`)
-
-listdfrace$MarisAllieB <- listdfrace$MarisAllieB[-c(1:2),-2]
-tps <- 1:12603
-listdfrace$MarisAllieB <- cbind(listdfrace$MarisAllieB , tps)
-colnames(listdfrace$MarisAllieB) <-
-  c("speed" , "hr" , "altitude" , "distance" , "temps")
-
-listdfrace$MarisAllieB <-
-  listdfrace$MarisAllieB %>% relocate(temps , hr , distance , altitude, speed)
+# # Remise en forme Maris
+#
+# listdfrace$MarisAllieB <-
+#   listdfrace$MarisAllieB %>% select(`Start time`,
+#                                            Sport ,
+#                                            Date ,
+#                                            `Average heart rate (bpm)`,
+#                                            `Max speed (km/h)`)
+#
+# listdfrace$MarisAllieB <- listdfrace$MarisAllieB[-c(1:2),-2]
+# tps <- 1:12603
+# listdfrace$MarisAllieB <- cbind(listdfrace$MarisAllieB , tps)
+# colnames(listdfrace$MarisAllieB) <-
+#   c("speed" , "hr" , "altitude" , "distance" , "temps")
+#
+# listdfrace$MarisAllieB <-
+#   listdfrace$MarisAllieB %>% relocate(temps , hr , distance , altitude, speed)
 
 # Remise en forme Maxence
 
-listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB[, 1:23]
-
-speedfontes <- listdfrace$MaxenceFontesB[,1]
-speedfontes <- speedfontes %>% drop_na()
-colnames(speedfontes) <- "vitesse"
-speedfontes <- as.data.frame(as.numeric(unlist(speedfontes)))
-colnames(speedfontes) <- "speed"
-speedfontes <- filter(speedfontes , speed < 6)
-
-listdfrace$MaxenceFontesB <- dplyr::select_if(listdfrace$MaxenceFontesB, is.numeric)
-listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB %>% drop_na()
-listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB[, -c(1,4,5)]
-
-colnames(listdfrace$MaxenceFontesB) <- c("distance" , "altitude" , "hr")
-
-listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB %>% filter(hr < 190 & hr > 55)
+# listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB[, 1:23]
+#
+# speedfontes <- listdfrace$MaxenceFontesB[,1]
+# speedfontes <- speedfontes %>% drop_na()
+# colnames(speedfontes) <- "vitesse"
+# speedfontes <- as.data.frame(as.numeric(unlist(speedfontes)))
+# colnames(speedfontes) <- "speed"
+# speedfontes <- filter(speedfontes , speed < 6)
+#
+# listdfrace$MaxenceFontesB <- dplyr::select_if(listdfrace$MaxenceFontesB, is.numeric)
+# listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB %>% drop_na()
+# listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB[, -c(1,4,5)]
+#
+# colnames(listdfrace$MaxenceFontesB) <- c("distance" , "altitude" , "hr")
+#
+# listdfrace$MaxenceFontesB <- listdfrace$MaxenceFontesB %>% filter(hr < 190 & hr > 55)
 
 #mise en forme douchet
 
@@ -210,20 +216,25 @@ colnames(listdfrace$MelvindouchetB) <- c("temps" , "distance" , "hr" , "altitude
 listdfrace$MelvindouchetB <-
   listdfrace$MelvindouchetB %>% relocate(temps , hr , distance , altitude , speed)
 
-listdfrace$MelvinDouchetBpart2 <-
-  listdfrace$MelvinDouchetBpart2 %>% select(`Start time`,
-                                     Sport ,
-                                     Date ,
-                                     `Average heart rate (bpm)`,
-                                     `Max speed (km/h)`)
-listdfrace$MelvinDouchetBpart2 <- listdfrace$MelvinDouchetBpart2[-c(1:2),-2]
-tps <- 1:6160
-listdfrace$MelvinDouchetBpart2 <- cbind(listdfrace$MelvinDouchetBpart2 , tps)
-colnames(listdfrace$MelvinDouchetBpart2) <-
-  c("speed" , "hr" , "altitude" , "distance" , "temps")
+listdfrace$MelvindouchetB <- listdfrace$MelvindouchetB %>% filter(hr < 200) %>% filter(distance < 18000)
 
-listdfrace$MelvinDouchetBpart2 <-
-  listdfrace$MelvinDouchetBpart2 %>% relocate(temps , hr , distance , altitude, speed)
+listdfrace$MelvindouchetB$speed <- listdfrace$MelvindouchetB$speed * 3.6
+
+
+# listdfrace$MelvinDouchetBpart2 <-
+#   listdfrace$MelvinDouchetBpart2 %>% select(`Start time`,
+#                                      Sport ,
+#                                      Date ,
+#                                      `Average heart rate (bpm)`,
+#                                      `Max speed (km/h)`)
+# listdfrace$MelvinDouchetBpart2 <- listdfrace$MelvinDouchetBpart2[-c(1:2),-2]
+# tps <- 1:6160
+# listdfrace$MelvinDouchetBpart2 <- cbind(listdfrace$MelvinDouchetBpart2 , tps)
+# colnames(listdfrace$MelvinDouchetBpart2) <-
+#   c("speed" , "hr" , "altitude" , "distance" , "temps")
+#
+# listdfrace$MelvinDouchetBpart2 <-
+#   listdfrace$MelvinDouchetBpart2 %>% relocate(temps , hr , distance , altitude, speed)
 
 #listdfrace$MelvindouchetB <- listdfrace %>%  rbind(MelvindouchetB , MelvinDouchetBpart2)
 
@@ -233,10 +244,12 @@ listdfrace$PierreEmanuelleNaulletA <-
   listdfrace$PierreEmanuelleNaulletA %>% select(temps , fc , distance , vitesse, altitude)
 
 colnames(listdfrace$PierreEmanuelleNaulletA) <-
-  c("temps" , "hr" , "speed" , "altitude", "distance")
+  c("temps" , "hr" , "distance" , "speed", "altitude")
 
 listdfrace$PierreEmanuelleNaulletA <-
   listdfrace$PierreEmanuelleNaulletA %>% relocate(temps , hr, distance, altitude, speed)
+
+listdfrace$PierreEmanuelleNaulletA$speed <- listdfrace$PierreEmanuelleNaulletA$speed * 3.6
 
 #mise en forme remi
 
@@ -257,33 +270,35 @@ listdfrace$RemiFalconA <-
 
 #mise en forme romain
 
-listdfrace$RomainOrioA <- listdfrace$RomainOrioA[,c(1,4,10,28)]
-
-listdfrace$RomainOrioA[1] <- as.numeric(unlist(listdfrace$RomainOrioA[1]))
-listdfrace$RomainOrioA[2] <- as.numeric(unlist(listdfrace$RomainOrioA[2]))
-
-colnames(listdfrace$RomainOrioA) <- c("altitude","speed","distance","hr")
-
-tempsromain <- listdfrace$RomainOrioA %>% filter(distance > 2000)
-tempsromain <- tempsromain[,1]
-tempsromain <- tempsromain %>% mutate(temps = altitude - altitude[1])
-tempsromain <- tempsromain[,2]
-
-listdfrace$RomainOrioA$altitude <-
-  ifelse(listdfrace$RomainOrioA$altitude > 2100,
-         NA,
-         listdfrace$RomainOrioA$altitude)
-
-listdfrace$RomainOrioA$speed <-
-  ifelse(listdfrace$RomainOrioA$speed > 6,
-         NA,
-         listdfrace$RomainOrioA$speed)
-
-listdfrace$RomainOrioA <-
-  listdfrace$RomainOrioA %>% filter(distance > 2 | is.na(distance))
-
-listdfrace$RomainOrioA <-
-  listdfrace$RomainOrioA %>% relocate(hr, distance, altitude, speed)
+# listdfrace$RomainOrioA <- listdfrace$RomainOrioA[,c(1,4,10,28)]
+#
+# listdfrace$RomainOrioA[1] <- as.numeric(unlist(listdfrace$RomainOrioA[1]))
+# listdfrace$RomainOrioA[2] <- as.numeric(unlist(listdfrace$RomainOrioA[2]))
+#
+# colnames(listdfrace$RomainOrioA) <- c("altitude","speed","distance","hr")
+#
+# tempsromain <- listdfrace$RomainOrioA %>% filter(distance > 2000)
+# tempsromain <- tempsromain[,1]
+# tempsromain <- tempsromain %>% mutate(temps = altitude - altitude[1])
+# tempsromain <- tempsromain[,2]
+#
+# listdfrace$RomainOrioA$altitude <-
+#   ifelse(listdfrace$RomainOrioA$altitude > 2100,
+#          NA,
+#          listdfrace$RomainOrioA$altitude)
+#
+# listdfrace$RomainOrioA$speed <-
+#   ifelse(listdfrace$RomainOrioA$speed > 6,
+#          NA,
+#          listdfrace$RomainOrioA$speed)
+#
+# listdfrace$RomainOrioA <-
+#   listdfrace$RomainOrioA %>% filter(distance > 2 | is.na(distance))
+#
+# listdfrace$RomainOrioA <-
+#   listdfrace$RomainOrioA %>% relocate(hr, distance, altitude, speed)
+#
+# listdfrace$RomainOrioA$speed <- listdfrace$RomainOrioA$speed *3.6
 
 #mise en forme Sacha
 
@@ -305,6 +320,8 @@ listdfrace$SachaPerrierB <- listdfrace$SachaPerrierB %>% filter(distance < 30000
 
 listdfrace$SachaPerrierB <-
   listdfrace$SachaPerrierB %>% relocate(temps, hr, distance, altitude, speed)
+
+listdfrace$SachaPerrierB$speed <- listdfrace$SachaPerrierB$speed *3.6
 
 #mise en forme simon
 
